@@ -14,40 +14,57 @@ We have four Candidates with name as 'John',
 John and Johny get maximum votes. Since John
 is alphabetically smaller, we print it.
 */
-
-#include<bits/stdc++.h>
-using namespace std;
-
-int winnerOfElection(vector<string>& votes){
-    unordered_map<string,int>m;
-    vector<string>::iterator i;
-    for (auto& str : votes)
-        {
-            m[str]++;
-        }
-    int maxvalue=0;
-    string winner;
-    unordered_map<string,int>::iterator it;
-    for(it=m.begin();it!=m.end();it++){
-        if(it->second > maxvalue){
-            maxvalue=it->second;
-            winner=it->first;
-        }
-        if(it->second == maxvalue && it->first < winner){
-            winner=it->first;
-        }
-    }
-    cout<<winner;
-}
-
-int main() {
-    vector<string> votes;
-    int n;
-    cin>>n;
-    while(n--){
-        string s;
-        cin>>s;
-        votes.push_back(s);
-    }
-    winnerOfElection(votes);
-}
+#include "bits/stdc++.h" 
+using namespace std; 
+  
+    /* We have four Candidates with name as 'John', 
+      'Johnny', 'jamie', 'jackie'. 
+       The votes in String array are as per the 
+       votes casted. Print the name of candidates 
+       received Max vote. */
+    void findWinner(vector<string>& votes) 
+    { 
+          
+        // Insert all votes in a hashmap 
+        map<string,int> mapObj ; 
+        for (auto& str : votes) 
+        { 
+            mapObj[str]++; 
+        } 
+   
+        // Traverse through map to find the candidate 
+        // with maximum votes. 
+        int maxValueInMap = 0; 
+        string winner; 
+        for (auto& entry : mapObj) 
+        { 
+            string key  = entry.first; 
+            int val = entry.second; 
+            if (val > maxValueInMap) 
+            { 
+                maxValueInMap = val; 
+                winner = key; 
+            } 
+   
+            // If there is a tie, pick lexicographically 
+            // smaller. 
+            else if (val == maxValueInMap && 
+                winner>key) 
+                winner = key; 
+        } 
+        cout << winner << endl; 
+    } 
+   
+    // Driver code 
+    int main() 
+    { 
+       vector<string> votes = { "john", "johnny", "jackie", 
+                         "johnny", "john", "jackie", 
+                         "jamie", "jamie", "john", 
+                         "johnny", "jamie", "johnny", 
+                         "john" }; 
+   
+       findWinner(votes); 
+       return 0; 
+    } 
+     
